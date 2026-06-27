@@ -11,19 +11,28 @@ const services = [
   "Dashboards analytiques"
 ];
 
-export default function Cover() {
+// 1. Définition de l'interface pour accepter la fonction onReveal
+interface CoverProps {
+  onReveal: () => void;
+}
+
+export default function Cover({ onReveal }: CoverProps) {
   const [isRevealed, setIsRevealed] = useState(false);
   const [currentService, setCurrentService] = useState(0);
 
+  // Fonction utilitaire pour déclencher la révélation et le callback
+  const handleReveal = () => {
+    setIsRevealed(true);
+    onReveal(); // Appelle la fonction passée par le parent
+  };
+
   useEffect(() => {
     if (!isRevealed) {
-      // Quand la couverture est là, on s'assure que le fond est bien calé en haut
       window.scrollTo(0, 0);
       document.body.style.overflow = "hidden";
 
       const handleWheelDown = (e: WheelEvent) => {
-        // Seuil à 30 pour éviter qu'un micro-mouvement lève la couverture
-        if (e.deltaY > 30) setIsRevealed(true);
+        if (e.deltaY > 30) handleReveal();
       };
 
       let touchStartY = 0;
@@ -32,7 +41,7 @@ export default function Cover() {
       };
       const handleTouchMoveDown = (e: TouchEvent) => {
         const touchEndY = e.touches[0].clientY;
-        if (touchStartY - touchEndY > 40) setIsRevealed(true); 
+        if (touchStartY - touchEndY > 40) handleReveal(); 
       };
 
       window.addEventListener("wheel", handleWheelDown);
@@ -46,12 +55,10 @@ export default function Cover() {
         window.removeEventListener("touchmove", handleTouchMoveDown);
       };
     } else {
-      // CORRECTION DU DÉCALAGE : On force le scroll tout en haut dès que la couverture s'ouvre
       window.scrollTo(0, 0); 
       document.body.style.overflow = "auto";
 
       const handleWheelUp = (e: WheelEvent) => {
-        // CORRECTION DE LA SENSIBILITÉ : Il faut être en haut ET scroller fort vers le haut (<-40)
         if (window.scrollY <= 0 && e.deltaY < -40) {
           setIsRevealed(false);
         }
@@ -64,7 +71,6 @@ export default function Cover() {
       const handleTouchMoveUp = (e: TouchEvent) => {
         if (window.scrollY <= 0) {
           const touchEndY = e.touches[0].clientY;
-          // Demande un swipe franc sur téléphone
           if (touchEndY - touchStartY > 40) setIsRevealed(false); 
         }
       };
@@ -95,7 +101,8 @@ export default function Cover() {
       transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }} 
       className="fixed inset-0 z-50 bg-background flex flex-col items-center justify-center border-b border-surface shadow-2xl"
     >
-
+      {/* ... le reste de ton JSX reste identique ... */}
+      
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -119,12 +126,9 @@ export default function Cover() {
       </motion.div>
 
       <div className="text-center px-4 flex flex-col items-center">
-        {/* Titre principal en blanc clair */}
         <h1 className="text-6xl md:text-[9rem] font-bold tracking-tighter text-text-light leading-none mb-6">
           Créatrice d'interfaces .
         </h1>
-
-        
         <div className="h-10 md:h-12 relative w-full flex justify-center overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.span
@@ -143,7 +147,7 @@ export default function Cover() {
 
       <motion.div
         className="absolute bottom-12 flex flex-col items-center cursor-pointer"
-        onClick={() => setIsRevealed(true)}
+        onClick={handleReveal} // Utilisation de la nouvelle fonction
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
