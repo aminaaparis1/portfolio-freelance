@@ -5,6 +5,7 @@ import Cover from "../components/Cover";
 import Navbar from "../components/Navbar";
 import About from "../components/About";
 import Projects from "../components/Projects";
+import Contact from "../components/Contact";
 
 export default function Home() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -35,7 +36,8 @@ export default function Home() {
       <Projects />
       
       {/* Section Contact */}
-      <section id="contact" className="py-32 px-4 flex flex-col items-center justify-center text-center">
+      <Contact />
+       {/*  <section id="contact" className="py-32 px-4 flex flex-col items-center justify-center text-center">
          <h2 className="text-6xl md:text-[8rem] font-bold tracking-tighter text-background mb-8">
             Discutons.
          </h2>
@@ -45,7 +47,7 @@ export default function Home() {
          >
            amina.zouane@exemple.com
          </a>
-      </section>
+      </section> >*/}
     </main>
   );
 }
