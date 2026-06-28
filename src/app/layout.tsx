@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Amina Zouane | Portfolio",
   description: "Portfolio de Amina Zouane, Master 1 MIAGE Intelligent Business Informatics à Paris 1 Panthéon-Sorbonne.",
+  icons: {
+    icon: "/favicon.ico", // Next.js cherchera dans /public ou /src/app
+  },
 };
 
 export default function RootLayout({
