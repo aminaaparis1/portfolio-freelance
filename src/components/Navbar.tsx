@@ -9,7 +9,7 @@ export default function Navbar() {
       {/* Liens de navigation */}
       <div className="flex gap-12 text-[10px] font-bold uppercase tracking-[0.2em] text-background">
         <a href="#about" className="hover:text-primary transition-colors">À propos</a>
-        <a href="#projets" className="hover:text-primary transition-colors">Projets</a>
+        <a href="#projects" className="hover:text-primary transition-colors">Projets</a>
         <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
       </div>
     </nav>

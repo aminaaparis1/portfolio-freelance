@@ -37,17 +37,6 @@ export default function Home() {
       
       {/* Section Contact */}
       <Contact />
-       {/*  <section id="contact" className="py-32 px-4 flex flex-col items-center justify-center text-center">
-         <h2 className="text-6xl md:text-[8rem] font-bold tracking-tighter text-background mb-8">
-            Discutons.
-         </h2>
-         <a 
-           href="mailto:amina.zouane@exemple.com" 
-           className="text-2xl border-b-2 border-primary text-background hover:text-primary transition-colors pb-1"
-         >
-           amina.zouane@exemple.com
-         </a>
-      </section> >*/}
     </main>
   );
 }
